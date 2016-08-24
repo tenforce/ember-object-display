@@ -1,0 +1,22 @@
+{
+  "name": "ember",
+  "license": "MIT",
+  "version": "2.3.2",
+  "main": [
+    "./ember.debug.js",
+    "./ember-template-compiler.js"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.7.0 < 2.2.0"
+  },
+  "homepage": "https://github.com/components/ember",
+  "_release": "2.3.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.3.2",
+    "commit": "98e3bff9dbbbb7907b8e5ada7483ba0c16c18481"
+  },
+  "_source": "https://github.com/components/ember.git",
+  "_target": "~2.3.1",
+  "_originalSource": "ember"
+}
