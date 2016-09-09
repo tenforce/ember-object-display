@@ -2,5 +2,8 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-object-display'
+  name: 'ember-object-display',
+  isDevelopingAddon: function() {
+    return true;
+  }
 };

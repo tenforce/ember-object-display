@@ -1,1 +1,0 @@
-export { default } from 'ember-object-display/components/test-addon-thing';

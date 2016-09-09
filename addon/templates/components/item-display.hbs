@@ -1,0 +1,14 @@
+{{#if model.label}}
+    {{value-display model=model.label object=object inheritedHelpers=helpers clicked="labelClicked"}}
+{{/if}}
+{{#if isLoading}}
+    {{#if model.loading}}
+        {{value-display model=loading.label object=object inheritedHelpers=helpers clicked="labelClicked"}}
+    {{else}}
+        {{loading-default}}
+    {{/if}}
+{{else}}
+    {{#unless (and collapsible collapsed)}}
+        {{value-display model=model.value object=object inheritedHelpers=helpers clicked="valueClicked"}}
+    {{/unless}}
+{{/if}}

@@ -1,0 +1,9 @@
+{{#if displayTitle}}
+    {{item-display model=model.title object=object inheritedHelpers=helpers labelClicked="labelClicked" valueClicked="valueClicked"
+    handleHide="handleHideTitle"}}
+{{/if}}
+{{#if displayHeadings}}
+    {{#unless collapsed}}
+        {{headings-display model=model.headings object=object inheritedHelpers=helpers handleHide="handleHideHeadings"}}
+    {{/unless}}
+{{/if}}
