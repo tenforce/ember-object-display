@@ -1,0 +1,7 @@
+items
+{{#each model.values as |item index|}}
+    item
+    {{item-display model=item object=object inheritedHelpers=helpers index=index handleHide="handleHide"}}
+    /item
+{{/each}}
+/items

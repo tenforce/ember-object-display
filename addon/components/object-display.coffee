@@ -18,13 +18,32 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     unless @get('model.headings') then return false
     if @get('hideHeadings') is true then return false
     true
+  inheritedHelpers:
+    collapse: (context) ->
+      if context.get('collapsible') then context.toggleProperty('collapsed')
+      else if context?.get('log') then console.log("collapse / expand ignored")
+    prefixClicked: (context) ->
+      if context.get('prefixClicked') then context.get('prefixClicked')(context)
+      else context.get('helpers.collapse')(context)
+    suffixClicked: (context) ->
+      if context.get('suffixClicked') then context.get('suffixClicked')(context)
+      else context.get('helpers.collapse')(context)
+    labelClicked: (context) ->
+      if context.get('labelClicked') then context.get('labelClicked')(context)
+      else context.get('helpers.collapse')(context)
+    loadingClicked: (context) ->
+      if context.get('loadingClicked') then context.get('loadingClicked')(context)
+      else context.get('helpers.collapse')(context)
+    valueClicked: (context) ->
+      if context.get('valueClicked') then context.get('valueClicked')(context)
+      else context.get('helpers.collapse')(context)
   actions:
-    labelClicked: ->
-      console.log "object display - label clicked"
-      if @get('collapsible') then @toggleProperty('collapsed')
-    valueClicked: ->
-      console.log "object display - value clicked"
-      if @get('collapsible') then @toggleProperty('collapsed')
+    handleLabelClicked: (context) ->
+      @get('helpers.labelClicked')(@)
+    handleLoadingClicked: (context) ->
+      @get('helpers.loadingClicked')(@)
+    handleValueClicked: (context) ->
+      @get('helpers.valueClicked')(@)
     handleHideTitle: ->
       @set('hideTitle', true)
     handleHideHeadings: ->

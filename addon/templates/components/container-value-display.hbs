@@ -1,0 +1,53 @@
+{{#if isArray}}
+    {{#each (await value) as |subvalue index|}}
+        {{#if model.prefix}}
+            {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+        {{/if}}
+        {{value-display model=model object=object value=(promise-maker subvalue) index=index inheritedHelpers=helpers
+        clicked="handleValueClicked"}}
+        {{#if model.suffix}}
+            {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+        {{/if}}
+    {{/each}}
+{{else if isSimple}}
+    {{#if model.prefix}}
+        {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+    {{/if}}
+    {{value-display model=model object=object value=value index=index inheritedHelpers=helpers clicked="handleValueClicked"}}
+    {{#if model.suffix}}
+        {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+    {{/if}}
+{{else if isComponent}}
+    {{#if model.prefix}}
+        {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+    {{/if}}
+    {{component (await value) model=model object=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+    {{#if model.suffix}}
+        {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+    {{/if}}
+{{else if isHasOne}}
+    {{#if model.prefix}}
+        {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+    {{/if}}
+    {{!component (await value) model=model object=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+    {{#if model.suffix}}
+        {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+    {{/if}}
+{{else if isHasMany}}
+    {{#if model.prefix}}
+        {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+    {{/if}}
+    {{!component (await value) model=model object=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+    {{#if model.suffix}}
+        {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+    {{/if}}
+{{else if isItem}}
+    {{#if model.prefix}}
+        {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"}}
+    {{/if}}
+    {{item-display model=model object=object inheritedHelpers=helpers handleValueClicked="handleValueClicked"
+    handleLabelClicked="handleValueClicked"}}
+    {{#if model.suffix}}
+        {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked"}}
+    {{/if}}
+{{/if}}

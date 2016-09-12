@@ -7,6 +7,7 @@ PropertiesGetterMixin = Ember.Mixin.create
   defaultModifiable: false
   defaultLoading: false
   defaultHide: false
+  defaultLog: false
   empty: false
 
   showEmpty: Ember.computed 'model.properties.showEmpty', ->
@@ -31,6 +32,10 @@ PropertiesGetterMixin = Ember.Mixin.create
     loading = @get 'model.properties.loading'
     if loading is undefined then loading = @get 'defaultLoading'
     loading
+  log: Ember.computed 'model.properties.log', ->
+    log = @get 'model.properties.log'
+    if log is undefined then log = @get 'defaultLog'
+    log
   hide: Ember.computed 'model.properties.hide', ->
     hide = @get 'model.properties.hide'
     if hide is undefined then hide = @get 'defaultHide'

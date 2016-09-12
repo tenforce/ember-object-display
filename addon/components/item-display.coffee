@@ -9,19 +9,23 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultClassNameBindings: ['collapsed:collapsed:open']
   defaultCollapsible: false
   defaultCollapsed: false
-  #classNames: ['testtest']
-  init: ->
-    @._super()
-    console.log "init item display1"
-    @setAttributes()
-    console.log "init item display2"
+
+  labelClicked: (context) ->
+    if context.get 'collapsible'
+      context.toggleProperty('collapsed')
+    context.sendAction('handleLabelClicked', context)
+  valueClicked: (context) ->
+    context.sendAction('handleValueClicked', context)
   actions:
-    labelClicked: (object, model) ->
-      if @get 'collapsible'
-        @toggleProperty('collapsed')
-      @sendAction('labelClicked', object, model)
-    valueClicked: (object, model) ->
-      @sendAction('valueClicked', object, model)
+    handleLabelClicked: (context) ->
+      # we send the context of this item, not the one received as parameter
+      @get('helpers.labelClicked')(@)
+    handleLoadingClicked: (context) ->
+      # we send the context of this item, not the one received as parameter
+      @get('helpers.loadingClicked')(@)
+    handleValueClicked: (context) ->
+      # we send the context of this item, not the one received as parameter
+      @get('helpers.valueClicked')(@)
 
 
 `export default ItemDisplayComponent`

@@ -1,14 +1,17 @@
 {{#if model.label}}
-    {{value-display model=model.label object=object inheritedHelpers=helpers clicked="labelClicked"}}
+    {{container-value-display model=model.label object=object inheritedHelpers=helpers clicked="handleLabelClicked"}}
+    {{!value-display model=model.label object=object inheritedHelpers=helpers clicked="handleLabelClicked"}}
 {{/if}}
 {{#if isLoading}}
     {{#if model.loading}}
-        {{value-display model=loading.label object=object inheritedHelpers=helpers clicked="labelClicked"}}
+        {{!value-display model=loading object=object inheritedHelpers=helpers clicked="handleLoadingClicked"}}
+        {{container-value-display model=model.loading object=object inheritedHelpers=helpers clicked="handleLoadingClicked"}}
     {{else}}
         {{loading-default}}
     {{/if}}
-{{else}}
-    {{#unless (and collapsible collapsed)}}
-        {{value-display model=model.value object=object inheritedHelpers=helpers clicked="valueClicked"}}
-    {{/unless}}
 {{/if}}
+{{#unless (and collapsible collapsed)}}
+    {{!value-display model=model.value object=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+    {{container-value-display model=model.value object=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+{{/unless}}
+

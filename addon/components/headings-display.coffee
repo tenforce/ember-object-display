@@ -5,5 +5,4 @@
 HeadingsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
 
-
 `export default HeadingsDisplayComponent`

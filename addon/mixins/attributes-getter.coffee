@@ -2,16 +2,19 @@
 
 AttributesGetterMixin = Ember.Mixin.create
   setAttributes: () ->
-    debugger
-    if @get('chosenTagName') then @set 'tagName', @get('chosenTagName')
+    if @get('doNotSetAttributes')
+      return false
+    if @get('log') then console.log("<-- IN set attributes -->")
+    if @get('chosenTagName') or @get('chosenTagName') is '' then @set 'tagName', @get('chosenTagName')
     if @get('chosenClassNames') then @set('classNames', @get('classNames').concat(@get('chosenClassNames')))
     if @get('chosenClassNameBindings') then @set('classNameBindings', @get('classNameBindings').concat(@get('chosenClassNameBindings')))
     if @get('chosenElementId') then @set 'elementId', @get('chosenElementId')
     if @get('chosenName') then @get('attributeBindings').push('chosenName:name')
     if @get('chosenTooltip') then @get('attributeBindings').push('chosenTooltip:title')
+    if @get('log') then console.log("<-- OUT set attributes -->")
   # Get the tagName if specified, otherwise a default value if it exists in the component, otherwise empty string #
   chosenTagName: Ember.computed 'model.attributes.tagName', ->
-    if @get 'model.attributes.tagName' then return @get 'model.attributes.tagName'
+    if @get('model.attributes.tagName') or @get('model.attributes.tagName') is '' then return @get 'model.attributes.tagName'
     else if @get 'defaultTagName' then return @get 'defaultTagName'
     else return ''
   # Get the classNames  if specified, otherwise a default value if it exists in the component, otherwise empty array #

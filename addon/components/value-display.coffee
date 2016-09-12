@@ -4,9 +4,13 @@
 
 ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
+  defaultTagName: 'div'
+  defaultClassNames: ['value-display']
+  defaultClassNameBindings: []
+  defaultCollapsible: false
+  defaultCollapsed: false
   click: ->
-    @sendAction('clicked', @get('object'), @get('model'))
+    @sendAction('clicked', @)
     false
-
 
 `export default ValueDisplayComponent`
