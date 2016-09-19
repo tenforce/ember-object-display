@@ -5,4 +5,9 @@
 ItemsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
 
+  actions:
+    handleHideItem: (context, index) ->
+      console.log "model : "+JSON.stringify(context.get('model'))
+      console.log "index : "+index
+
 `export default ItemsDisplayComponent`

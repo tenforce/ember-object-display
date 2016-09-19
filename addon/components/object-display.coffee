@@ -32,6 +32,7 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       if context.get('labelClicked') then context.get('labelClicked')(context)
       else context.get('helpers.collapse')(context)
     loadingClicked: (context) ->
+      console.log "loading clicked"
       if context.get('loadingClicked') then context.get('loadingClicked')(context)
       else context.get('helpers.collapse')(context)
     valueClicked: (context) ->

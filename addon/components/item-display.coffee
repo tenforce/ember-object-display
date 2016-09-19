@@ -10,11 +10,31 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultCollapsible: false
   defaultCollapsed: false
 
+  displayLabel: Ember.computed 'model.label', 'hideLabel', ->
+    if @get('hideLabel') then return false
+    if @get('model.label') then return true
+    false
+  displayLoading: Ember.computed 'model.loading', 'isLoading', ->
+    if @get('hideLoading') then return false
+    if @get('isLoading') then return true
+    false
+
+  labelIsLoaded: Ember.computed 'displayLabel', ->
+    unless @get('displayLabel') then return true
+    false
+  targetIsLoaded: false
+  isLoading: Ember.computed 'object', 'labelIsLoaded', 'targetIsLoaded', ->
+    if @get('labelIsLoaded') and @get('targetIsLoaded') then return false
+    true
+
+
   labelClicked: (context) ->
     if context.get 'collapsible'
       context.toggleProperty('collapsed')
     context.sendAction('handleLabelClicked', context)
   valueClicked: (context) ->
+    context.sendAction('handleValueClicked', context)
+  loadingClicked: (context) ->
     context.sendAction('handleValueClicked', context)
   actions:
     handleLabelClicked: (context) ->
@@ -26,6 +46,16 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     handleValueClicked: (context) ->
       # we send the context of this item, not the one received as parameter
       @get('helpers.valueClicked')(@)
+    handleHideValue: (context, index) ->
+      @set('empty', true)
+    handleHideLabel: (context, index) ->
+      @set('hideLabel', true)
+    handleHideLoading: (context, index) ->
+      @set('hideLoading', true)
+    handleLoadedLabel: ->
+      @set('labelIsLoaded', true)
+    handleLoadedTarget: ->
+      @set('targetIsLoaded', true)
 
 
 `export default ItemDisplayComponent`

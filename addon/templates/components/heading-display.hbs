@@ -1,15 +1,9 @@
-heading
 {{#if displayTitle}}
-    displaytitle
     {{item-display model=model.title object=object inheritedHelpers=helpers handleLabelClicked="handleLabelClicked"
     handleValueClicked="handleValueClicked" handleHide="handleHideTitle"}}
-    /displaytitle
 {{/if}}
 {{#if displayItems}}
     {{#unless collapsed}}
-        displayitems
         {{items-display model=model.items object=object inheritedHelpers=helpers handleHide="handleHideItems"}}
-        /displayitems
     {{/unless}}
 {{/if}}
-/heading
