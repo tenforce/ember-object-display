@@ -12,18 +12,21 @@ Remaining work:
 
 Ember-object-display is an addon that can be used to render the different properties of an object, usually a model object but it might just work with any kind of object.
 The configuration needed by this addon is a JSON object, divided in different parts.
-Those different parts are: 
+Those different parts are:
 
 For the object displayer:
 - An optional main title, of the <ITEM> type
 - A list of HEADINGS
+
 For the heading:
 - An optional heading title, of the <ITEM> type
 - A list of ITEMS
+
 For the item:
 - An optional label, of the <VALUE> type
 - An optional loading component, of the <VALUE> type, if none is provided, a default one is used, just displaying "Loading..." (overriding this one should be possible)
 - A target, the value we want to display, of the <VALUE> type
+
 For the value:
 - A type, which must be in ['string', 'property', 'array', 'component', 'hasOne', 'hasMany']
 	* String : a simple hardcoded string which value is set in the "value" field.
@@ -58,7 +61,7 @@ Moreover, nearly each of those parts can customizable through different paramete
 
 <<-- TODO : COMPLETE -->>
 
-
+```json
 testObject:
     attributes:
       tagName: 'div'
@@ -218,3 +221,4 @@ testObject:
                 ]
           }
         ]
+```
