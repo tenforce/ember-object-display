@@ -10,6 +10,13 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultCollapsible: false
   defaultCollapsed: false
 
+  backupmodel: undefined
+  copyModel: Ember.observer('object', () ->
+    backupmodel = @get('backupmodel')
+    if backupmodel then @set('model', JSON.parse(JSON.stringify(backupmodel)))
+    else @set('backupmodel', JSON.parse(JSON.stringify(@get('model'))))
+  ).on('init')
+
   displayTitle: Ember.computed 'model.title', 'hideTitle', ->
     unless @get('model.title') then return false
     if @get('hideTitle') is true then return false

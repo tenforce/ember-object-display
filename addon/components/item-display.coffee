@@ -25,10 +25,10 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   targetIsLoaded: false
   isLoading: Ember.computed 'object', 'labelIsLoaded', 'targetIsLoaded', ->
     if @get('loading') is false then return false
-    debugger
+    #debugger
     if @get('labelIsLoaded') and @get('targetIsLoaded') then return false
     else
-      debugger
+      #debugger
       @sendAction('handleFinishedLoading', @, @get('index'))
       true
 

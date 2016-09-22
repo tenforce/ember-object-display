@@ -142,9 +142,9 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
         else
           @get('object').save()
     handleItemValueConfirmed: (model, newvalue, index) ->
-      debugger
-      # TODO : Handle
-      false
+      if index and newvalue and model
+        @get('object').get(this.get('model.value'))[index] = newvalue
+        @get('object').save()
 
 
 `export default ContainerValueDisplayComponent`

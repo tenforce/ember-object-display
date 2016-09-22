@@ -15,7 +15,7 @@ HeadingsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
 
   actions:
     handleHideHeading: (context, index) ->
-      debugger
+      #debugger
       context.set('model._shouldHide', true)
       @incrementProperty('emptyHeadings')
 
