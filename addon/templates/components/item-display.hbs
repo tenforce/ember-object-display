@@ -3,12 +3,12 @@
     handleHide="handleHideLabel" handleFinishedLoading="handleLoadedLabel"}}
 {{/if}}
 {{#if displayLoading}}
-    {{#if model.loading}}
-        {{container-value-display model=model.loading object=object inheritedHelpers=helpers clicked="handleLoadingClicked"
-        handleHide="handleHideLoading"}}
-    {{else}}
-        {{loading-default}}
-    {{/if}}
+  {{#if (eq model.loading true)}}
+    {{loading-default}}
+  {{else if model.loading}}
+    {{container-value-display model=model.loading object=object inheritedHelpers=helpers clicked="handleLoadingClicked"
+    handleHide="handleHideLoading"}}
+  {{/if}}
 {{/if}}
 {{#unless (and collapsible collapsed)}}
     {{container-value-display model=model.target object=object inheritedHelpers=helpers clicked="handleValueClicked"

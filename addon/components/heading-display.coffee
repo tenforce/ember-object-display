@@ -23,5 +23,6 @@ HeadingDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       @set('hideTitle', true)
     handleHideItems: ->
       @set('hideItems', true)
+      @set('hide', true)
 
 `export default HeadingDisplayComponent`

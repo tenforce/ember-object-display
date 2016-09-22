@@ -1,3 +1,5 @@
 {{#each model.values as |item index|}}
+  {{#unless item._shouldHide}}
     {{item-display model=item object=object inheritedHelpers=helpers index=index handleHide="handleHideItem"}}
+  {{/unless}}
 {{/each}}

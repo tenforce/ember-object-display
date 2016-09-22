@@ -9,27 +9,6 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   classNames: []
   classNameBindings: []
 
-  displayPrefix: Ember.computed 'model.prefix', 'model.item.prefix', 'hidePrefix', ->
-    if @get('hidePrefix') then return false
-    if @get('model.prefix') or @get('model.item.prefix') then return true
-  displaySuffix: Ember.computed 'model.suffix', 'model.item.suffix', 'hideSuffix', ->
-    if @get('hideSuffix') then return false
-    if @get('model.suffix') or @get('model.item.suffix') then return true
-
-  prefixIsLoaded: Ember.computed 'displayPrefix', ->
-    unless @get('displayPrefix') then return true
-    false
-  suffixIsLoaded: Ember.computed 'displaySuffix', ->
-    unless @get('displaySuffix') then return true
-    false
-  valueIsLoaded: false
-  isLoading: Ember.computed 'object', 'prefixIsLoaded', 'suffixIsLoaded', 'valueIsLoaded', ->
-    if @get('prefixIsLoaded') and @get('suffixIsLoaded') and @get('valueIsLoaded') then return false
-    true
-  finishedLoading: Ember.observer('object', 'isLoading', () ->
-    if @get('isLoading') is false then @sendAction('handleFinishedLoading', @, @get('index'))
-  ).on('init')
-
   isArray: Ember.computed 'model.type', ->
     type = @get('model.type')
     if 'array' is type then return true
@@ -75,9 +54,31 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   relation: Ember.computed 'object', 'model.relation', 'model.relation', ->
     @get('model.relation')
 
+
+  displayPrefix: Ember.computed 'model.prefix', 'model.item.prefix', 'hidePrefix', ->
+    if @get('hidePrefix') then return false
+    if @get('model.prefix') or @get('model.item.prefix') then return true
+  displaySuffix: Ember.computed 'model.suffix', 'model.item.suffix', 'hideSuffix', ->
+    if @get('hideSuffix') then return false
+    if @get('model.suffix') or @get('model.item.suffix') then return true
+
+  prefixIsLoaded: Ember.computed 'displayPrefix', ->
+    unless @get('displayPrefix') then return true
+    false
+  suffixIsLoaded: Ember.computed 'displaySuffix', ->
+    unless @get('displaySuffix') then return true
+    false
+  valueIsLoaded: false
+  isLoading: Ember.computed 'object', 'prefixIsLoaded', 'suffixIsLoaded', 'valueIsLoaded', ->
+    if @get('prefixIsLoaded') and @get('suffixIsLoaded') and @get('valueIsLoaded') then return false
+    true
+  finishedLoading: Ember.observer('object', 'isLoading', () ->
+    if @get('isLoading') is false then @sendAction('handleFinishedLoading', @, @get('index'))
+  ).on('init')
+
   arrayLength: Ember.computed 'object', 'model', 'value', ->
     @get('value').then (value) =>
-      if value.get && (value.get('length') is not undefined) then return value.get('length')
+      if value.get && ((value.get('length') is 0) or (value.get('length'))) then return value.get('length')
       else return value.length
   emptyItems: 0
   loadedItems: 0
@@ -87,6 +88,7 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
     if ['array', 'hasMany'].contains @get('model.type')
       @get('arrayLength').then (length) =>
+        #debugger
         if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
   ).on('init')
 
@@ -112,12 +114,9 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       @get('helpers.suffixClicked')(@)
     handleValueClicked: ->
       @get('helpers.valueClicked')(@)
-    handleHideItem: (context, index) ->
-      # TODO : Handle
-      debugger
+    handleHideItem: (context, index, subject) ->
       @incrementProperty('emptyItems')
-      console.log "handle item should hide"
-      context.set('value._shouldHide', true)
+      subject.set('_shouldHide', true)
     handleHideValue: (context, index)->
       @sendAction('handleHide', @, @get('index'))
     handleHidePrefix: (context, index)->
@@ -132,11 +131,8 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       @set('suffixIsLoaded', true)
     handleItemFinishedLoading: (context, index) ->
       # TODO : Handle
-      debugger
       @incrementProperty('loadedItems')
-      console.log "handle item finished loading"
     handleValueConfirmed: (model, newvalue) ->
-      debugger
       if model.type is "string" then model.value = newvalue
       else if model.type is "property"
         checkProm = @get('object').set(model.value, newvalue)

@@ -19,11 +19,13 @@ AttributesGetterMixin = Ember.Mixin.create
     else return ''
   # Get the classNames  if specified, otherwise a default value if it exists in the component, otherwise empty array #
   chosenClassNames: Ember.computed 'model.attributes.classNames', ->
+    unless @get 'chosenTagName' then return []
     if @get 'model.attributes.classNames' then return @get 'model.attributes.classNames'
     else if @get 'defaultClassNames' then return @get 'defaultClassNames'
     else return ['']
   # Get the classNameBindings if specified, otherwise a default value if it exists in the component, otherwise empty array #
   chosenClassNameBindings: Ember.computed 'model.attributes.classNameBindings', ->
+    unless @get 'chosenTagName' then return []
     if @get 'model.attributes.classNameBindings' then return @get 'model.attributes.classNameBindings'
     else if @get 'defaultClassNameBindings' then return @get 'defaultClassNameBindings'
     else return ['']

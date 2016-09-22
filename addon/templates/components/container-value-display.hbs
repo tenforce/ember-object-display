@@ -6,7 +6,7 @@
           {{#if displayPrefix}}
             {{container-value-display model=model.item.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
           {{/if}}
-          {{value-display model=model.item object=object value=(promise-maker subvalue) index=index inheritedHelpers=helpers
+          {{value-display model=model.item object=object value=(promise-maker subvalue) index=index inheritedHelpers=helpers subject=subvalue
           clicked="handleValueClicked" handleHide="handleHideItem" handleFinishedLoading="handleItemFinishedLoading" valueConfirmed="handleItemValueConfirmed"}}
           {{#if displaySuffix}}
             {{container-value-display model=model.item.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
@@ -41,7 +41,7 @@
   {{#if displayPrefix}}
     {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
   {{/if}}
-  {{container-value-display model=model.relation object=value originalObject=object inheritedHelpers=helpers clicked="handleValueClicked"}}
+  {{container-value-display model=model.relation object=value originalObject=object inheritedHelpers=helpers clicked="handleValueClicked" handleFinishedLoading="handleValueFinishedLoading"}}
   {{#if displaySuffix}}
     {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
   {{/if}}
@@ -53,7 +53,8 @@
     {{/if}}
     {{#each (await value) as |subvalue index|}}
       {{#value-surrounder model=model.member object=object inheritedHelpers=helpers}}
-        {{container-value-display model=model.relation object=subvalue originalObject=object index=index inheritedHelpers=helpers clicked="handleValueClicked"}}
+        {{container-value-display model=model.relation object=subvalue originalObject=object index=index inheritedHelpers=helpers subject=subvalue
+        clicked="handleValueClicked" handleHide="handleHideItem" handleFinishedLoading="handleValueFinishedLoading"}}
       {{/value-surrounder}}
     {{/each}}
     {{#if displaySuffix}}
@@ -65,8 +66,8 @@
   {{#if displayPrefix}}
     {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
   {{/if}}
-  {{item-display model=model object=object inheritedHelpers=helpers handleValueClicked="handleValueClicked"
-  handleLabelClicked="handleValueClicked"}}
+  {{item-display model=model.value object=object inheritedHelpers=helpers handleValueClicked="handleValueClicked"
+  handleLabelClicked="handleValueClicked" handleFinishedLoading="handleValueFinishedLoading"}}
   {{#if displaySuffix}}
     {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
   {{/if}}

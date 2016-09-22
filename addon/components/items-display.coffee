@@ -5,9 +5,17 @@
 ItemsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
 
+  arrayLength: Ember.computed 'object', 'model.values.length', ->
+    @get('model.values.length')
+  emptyItems: 0
+
+  checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
+    if @get('arrayLength') is @get('emptyItems') then @set('empty', true)
+  ).on('init')
+
   actions:
     handleHideItem: (context, index) ->
-      console.log "model : "+JSON.stringify(context.get('model'))
-      console.log "index : "+index
+      context.set('model._shouldHide', true)
+      @incrementProperty('emptyItems')
 
 `export default ItemsDisplayComponent`

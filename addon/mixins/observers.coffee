@@ -3,7 +3,7 @@
 ObserversMixin = Ember.Mixin.create
   shouldHide: Ember.observer('object', 'hide', 'showEmpty', 'empty', () ->
     if @get('hide') is true then @sendAction('handleHide', @, @get('index'))
-    else if @get('empty') then unless @get 'showEmpty' then @sendAction('handleHide', @, @get('index'))
+    else if @get('empty') then unless @get 'showEmpty' then @sendAction('handleHide', @, @get('index'), @get('subject'))
   ).on('init')
 
 `export default ObserversMixin`

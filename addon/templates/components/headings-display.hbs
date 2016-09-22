@@ -1,3 +1,5 @@
 {{#each model.values as |heading index|}}
-    {{heading-display model=heading object=object index=index inheritedHelpers=helpers index=index handleHide="handleHide"}}
+  {{#unless heading._shouldHide}}
+    {{heading-display model=heading object=object index=index inheritedHelpers=helpers index=index handleHide="handleHideHeading"}}
+  {{/unless}}
 {{/each}}
