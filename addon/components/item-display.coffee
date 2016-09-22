@@ -47,8 +47,10 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       # we send the context of this item, not the one received as parameter
       @get('helpers.valueClicked')(@)
     handleHideValue: (context, index) ->
+      @set('targetIsLoaded', true)
       @set('empty', true)
     handleHideLabel: (context, index) ->
+      @set('labelIsLoaded', true)
       @set('hideLabel', true)
     handleHideLoading: (context, index) ->
       @set('hideLoading', true)

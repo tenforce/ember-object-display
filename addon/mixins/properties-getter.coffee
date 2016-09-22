@@ -11,6 +11,7 @@ PropertiesGetterMixin = Ember.Mixin.create
   empty: false
 
   showEmpty: Ember.computed 'model.properties.showEmpty', ->
+    if @get('model.properties.modifiable') then return true
     showEmpty = @get 'model.properties.showEmpty'
     if showEmpty is undefined then showEmpty = @get 'defaultShowEmpty'
     showEmpty
@@ -28,6 +29,18 @@ PropertiesGetterMixin = Ember.Mixin.create
     modifiable = @get 'model.properties.modifiable'
     if modifiable is undefined then modifiable = @get 'defaultModifiable'
     modifiable
+  modifiableCols: Ember.computed 'model.properties.modifiable.cols', ->
+    modifiableCols = @get 'model.properties.modifiable.cols'
+    if modifiableCols is undefined then modifiableCols = "80"
+    modifiableCols
+  modifiableRows: Ember.computed 'model.properties.modifiable.rows', ->
+    modifiableRows = @get 'model.properties.modifiable.rows'
+    if modifiableRows is undefined then modifiableRows = "6"
+    modifiableRows
+  modifiableSize: Ember.computed 'model.properties.modifiable.size', ->
+    modifiableSize = @get 'model.properties.modifiable.size'
+    if modifiableSize is undefined then modifiableSize = "80"
+    modifiableSize
   loading: Ember.computed 'model.properties.loading', ->
     loading = @get 'model.properties.loading'
     if loading is undefined then loading = @get 'defaultLoading'

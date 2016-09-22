@@ -49,5 +49,8 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       @set('hideTitle', true)
     handleHideHeadings: ->
       @set('hideHeadings', true)
+    saveChanges: ->
+      if @get('bubbleSaveChanges') then sendAction('saveChanges', @get('object'))
+      else @get('object')?.save()
 
 `export default ObjectDisplayComponent`

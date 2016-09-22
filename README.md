@@ -50,7 +50,10 @@ Moreover, nearly each of those parts can customizable through different paramete
 	* showEmpty: sends an action "handleHide" if this boolean isn't set to true and the value is undefined or empty
 	* collapsible: used to decide wether this part is collapsible or not.
 	* collapsed: specify whether this part starts collapsed or open
-	* modifiable: <<NOT IMPLEMENTED YET>> specify whether this part is modifiable
+	* modifiable: <<NOT IMPLEMENTED YET>> specify whether this part is modifiable. False by default, if you specify "true", a default input
+	type will be chosen. Please specify the type of the input as follow:
+	  modifiable:
+	    type: "text"
 	* hide: specify whether this part should be hidden
 	* parameters: this is where you should specify anything additional that your custom components might need
 - Helpers: Different functions that gets propagated from top level to bottom ones. If a node overrides one of the helpers, the children get affected but not the elder nodes. Some of the default actions get handled through default helpers (clicked, handleHide, handleFinishedLoading).

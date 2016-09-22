@@ -75,6 +75,27 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   relation: Ember.computed 'object', 'model.relation', 'model.relation', ->
     @get('model.relation')
 
+  arrayLength: Ember.computed 'object', 'model', 'value', ->
+    @get('value').then (value) =>
+      if value.get && (value.get('length') is not undefined) then return value.get('length')
+      else return value.length
+  emptyItems: 0
+  loadedItems: 0
+  handledItems: Ember.computed 'emptyItems', 'loadedItems', ->
+    @get('emptyItems') + @get('loadedItems')
+
+  checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
+    if ['array', 'hasMany'].contains @get('model.type')
+      @get('arrayLength').then (length) =>
+        if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
+  ).on('init')
+
+  checkHandledItems: Ember.observer('object', 'arrayLength', 'handledItems', () ->
+    if ['array', 'hasMany'].contains @get('model.type')
+      @get('arrayLength').then (length) =>
+        if length is @get('handledItems') then @set('valueIsLoaded', true)
+  ).on('init')
+
   prefixClicked: (context) ->
     if context.get('log') then console.log "prefix clicked"
     context.sendAction('clicked', @)
@@ -92,8 +113,10 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     handleValueClicked: ->
       @get('helpers.valueClicked')(@)
     handleHideItem: (context, index) ->
+      # TODO : Handle
       debugger
-      console.log "bla"
+      @incrementProperty('emptyItems')
+      console.log "handle item should hide"
       context.set('value._shouldHide', true)
     handleHideValue: (context, index)->
       @sendAction('handleHide', @, @get('index'))
@@ -108,7 +131,24 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     handleSuffixFinishedLoading: (context, index) ->
       @set('suffixIsLoaded', true)
     handleItemFinishedLoading: (context, index) ->
+      # TODO : Handle
       debugger
-      console.log "blou"
+      @incrementProperty('loadedItems')
+      console.log "handle item finished loading"
+    handleValueConfirmed: (model, newvalue) ->
+      debugger
+      if model.type is "string" then model.value = newvalue
+      else if model.type is "property"
+        checkProm = @get('object').set(model.value, newvalue)
+        if checkProm.then
+          checkProm.then () =>
+            @get('object').save()
+        else
+          @get('object').save()
+    handleItemValueConfirmed: (model, newvalue, index) ->
+      debugger
+      # TODO : Handle
+      false
+
 
 `export default ContainerValueDisplayComponent`
