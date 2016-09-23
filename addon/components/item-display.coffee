@@ -5,7 +5,7 @@
 ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
   defaultTagName: 'div'
-  defaultClassNames: ['object-display']
+  defaultClassNames: ['item-display']
   defaultClassNameBindings: ['collapsed:collapsed:open']
   defaultCollapsible: false
   defaultCollapsed: false

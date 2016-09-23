@@ -2,10 +2,10 @@ EMBER-OBJECT-DISPLAY
 ____________________
 
 Remaining work:
-- Finish handling loading and hide for multivalued types
-- Allow simple modification
+- Find a cleaner way to hide empty stuff (model._shouldHide had an impact on the handleHide observer)
+- Finish handling loading and hide for multivalued types <WIP>
+- Allow simple modification <WIP>
 - Use a generic type of action handling, where the first parameter would be the real action name
-- Remove "loading" from properties, should only be used on item level
 - Add the list of helpers functions and their default implementation
 ---------------
 

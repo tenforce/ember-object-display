@@ -4,10 +4,18 @@
 
 ItemsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
+  defaultTagName: 'div'
+  defaultClassNames: ['items-display']
+  defaultClassNameBindings: ['collapsed:collapsed:open']
+  defaultCollapsible: false
+  defaultCollapsed: false
 
   arrayLength: Ember.computed 'object', 'model.values.length', ->
     @get('model.values.length')
+
   emptyItems: 0
+  cleanState: () ->
+    @set('emptyItems', 0)
 
   checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
     if @get('arrayLength') is @get('emptyItems') then @set('empty', true)

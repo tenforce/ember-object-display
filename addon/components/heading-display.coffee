@@ -4,6 +4,12 @@
 
 HeadingDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout: layout
+  defaultTagName: 'div'
+  defaultClassNames: ['heading-display']
+  defaultClassNameBindings: ['collapsed:collapsed:open']
+  defaultCollapsible: false
+  defaultCollapsed: false
+
   displayTitle: Ember.computed 'model.title', 'hideTitle', ->
     unless @get('model.title') then return false
     if @get('hideTitle') is true then return false
@@ -12,6 +18,12 @@ HeadingDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     unless @get('model.items') then return false
     if @get('hideItems') is true then return false
     true
+
+  checkEmptyItems: Ember.observer('object', 'model.items', 'hideItems', 'collapsed', () ->
+    items = @get('model.items')
+    unless items then @set('empty', true)
+    else if @get('hideItems') then @set('empty', true)
+  ).on('init')
   actions:
     handleLabelClicked: (context) ->
       @get('helpers.labelClicked')(@)
@@ -23,6 +35,5 @@ HeadingDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       @set('hideTitle', true)
     handleHideItems: ->
       @set('hideItems', true)
-      @set('hide', true)
 
 `export default HeadingDisplayComponent`

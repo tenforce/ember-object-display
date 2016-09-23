@@ -4,10 +4,18 @@
 
 HeadingsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   layout:layout
+  defaultTagName: 'div'
+  defaultClassNames: ['headings-display']
+  defaultClassNameBindings: ['collapsed:collapsed:open']
+  defaultCollapsible: false
+  defaultCollapsed: false
 
   arrayLength: Ember.computed 'object', 'model.values.length', ->
     @get('model.values.length')
+
   emptyHeadings: 0
+  cleanState: () ->
+    @set('emptyHeadings', 0)
 
   checkEmptyHeadings: Ember.observer('object', 'arrayLength', 'emptyHeadings', () ->
     if @get('arrayLength') is @get('emptyHeadings') then @set('empty', true)
@@ -15,7 +23,6 @@ HeadingsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
 
   actions:
     handleHideHeading: (context, index) ->
-      #debugger
       context.set('model._shouldHide', true)
       @incrementProperty('emptyHeadings')
 
