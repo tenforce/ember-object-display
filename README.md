@@ -40,18 +40,18 @@ For the value:
 - A prefix: Of the <VALUE> type, to be displayed in front of the actual value. In a multivalue case, the prefix will be repeated before each of the values.
 - A suffix: Of the <VALUE> type, to be displayed after the actual value. In a multivalue case, the suffix will be repeated after each of the values.
 - An item object: Only used when the type of the value is either "array" or "hasMany", defines the attributes / properties / helpers of each item in the list.
-- A container object: Only used when the type of the valie is either "array" or "hasMany", defines the attributes / properties / helpers of the list.
+- A container object: Only used when the type of the value is either "array" or "hasMany", defines the attributes / properties / helpers of the list.
 
 Moreover, nearly each of those parts can customizable through different parameters.
 - Attributes: Define the HTML attributes used for this part.
 	* TagName: the HTML tag used to render the part, can be set to '' to make it an empty one (do not that this prevents handling the "clicked" event though). If none have been provided, a default will be used for the current part (usually "div")
 	* ClassNames: the classes used to describe this part, they do not overwrite the existing ones but are appended. Overriding them would have meant losing the clicked event
-	* ClassNameBindings: used to specify a class depending on another property. Ex : ["isCollapsed:collapsed:open"] checks wether the "isCollapsed" property is true. If it is, the class will be "collapsed", otherwise it will be "open".
+	* ClassNameBindings: used to specify a class depending on another property. Ex : ["isCollapsed:collapsed:open"] checks whether the "isCollapsed" property is true. If it is, the class will be "collapsed", otherwise it will be "open".
 	* Tooltip: set a "title" attribute to the part, displaying a tooltip on mouseover.
 	* Name: set a name" attribute to the part
 - Properties: Define different properties for this part
 	* showEmpty: sends an action "handleHide" if this boolean isn't set to true and the value is undefined or empty
-	* collapsible: used to decide wether this part is collapsible or not.
+	* collapsible: used to decide whether this part is collapsible or not.
 	* collapsed: specify whether this part starts collapsed or open
 	* modifiable: <<NOT IMPLEMENTED YET>> specify whether this part is modifiable. False by default, if you specify "true", a default input
 	type will be chosen. Please specify the type of the input as follow:
