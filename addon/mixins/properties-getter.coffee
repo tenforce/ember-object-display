@@ -35,7 +35,7 @@ PropertiesGetterMixin = Ember.Mixin.create
     modifiableCols
   modifiableRows: Ember.computed 'model.properties.modifiable.rows', ->
     modifiableRows = @get 'model.properties.modifiable.rows'
-    if modifiableRows is undefined then modifiableRows = "6"
+    if modifiableRows is undefined then modifiableRows = "2"
     modifiableRows
   modifiableSize: Ember.computed 'model.properties.modifiable.size', ->
     modifiableSize = @get 'model.properties.modifiable.size'

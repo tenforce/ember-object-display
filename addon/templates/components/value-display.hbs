@@ -4,7 +4,7 @@
   {{else if modifiable.type}}
     {{!This if else part is here to be able to specify the different parameters that could be sent (like disabled, checked,...)}}
     {{#if (eq modifiable.type "textarea")}}
-      {{textarea value=(await value) cols=modifiableCols rows=modifiableRows key-press="keyPress"}}
+      {{textarea value=(await value) cols=modifiableCols key-press="keyPress"}}
     {{else if (eq modifiable.type "text")}}
       {{input type="text" value=(await value) size=modifiableSize key-press="keyPress"}}
     {{else if (eq modifiable.type "checkbox")}}

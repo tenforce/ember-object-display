@@ -1,8 +1,9 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/value-display'`
 `import MixinsContainerMixin from '../mixins/mixins-container'`
+`import ResizeTextareaMixin from '../mixins/resize-textarea'`
 
-ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
+ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTextareaMixin,
   layout:layout
   defaultTagName: 'div'
   defaultClassNames: ['value-display']
