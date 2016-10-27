@@ -67,7 +67,7 @@
     {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
   {{/if}}
   {{item-display model=model.value object=object inheritedHelpers=helpers handleValueClicked="handleValueClicked"
-  handleLabelClicked="handleValueClicked" handleFinishedLoading="handleValueFinishedLoading"}}
+  handleLabelClicked="handleValueClicked" handleFinishedLoading="handleValueFinishedLoading" handleHide="handleHideValue"}}
   {{#if displaySuffix}}
     {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
   {{/if}}

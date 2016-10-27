@@ -11,7 +11,7 @@
       {{input type="checkbox" checked=(await value)}}
     {{/if}}
   {{/if}}
-{{else}}
+{{else}}  
   {{#if (eq (await value) true)}}
     {{input type="checkbox" checked=true disabled=true}}
   {{else if (eq (await value) false)}}

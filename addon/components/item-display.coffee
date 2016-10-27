@@ -9,6 +9,9 @@ ItemDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultClassNameBindings: ['collapsed:collapsed:open']
   defaultCollapsible: false
   defaultCollapsed: false
+  empty: false
+
+  showItemDisplay: Ember.computed.not 'empty'
 
   displayLabel: Ember.computed 'model.label', 'hideLabel', ->
     if @get('hideLabel') then return false
