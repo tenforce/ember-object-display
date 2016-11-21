@@ -1,22 +1,22 @@
 {{#if modifiable}}
   {{#if (eq modifiable true)}}
-    {{input type="text" value=(await value) size=modifiableSize key-press="keyPress" placeholder=modifiablePlaceholder}}
+    {{input type="text" value=boundValue size=modifiableSize placeholder=modifiablePlaceholder}}
   {{else if modifiable.type}}
     {{!This if else part is here to be able to specify the different parameters that could be sent (like disabled, checked,...)}}
     {{#if (eq modifiable.type "textarea")}}
-      {{textarea value=(await value) cols=modifiableCols key-press="keyPress" placeholder=modifiablePlaceholder}}
+      {{textarea value=boundValue cols=modifiableCols placeholder=modifiablePlaceholder}}
     {{else if (eq modifiable.type "text")}}
-      {{input type="text" value=(await value) size=modifiableSize key-press="keyPress" placeholder=modifiablePlaceholder}}
+      {{input type="text" value=boundValue size=modifiableSize placeholder=modifiablePlaceholder}}
     {{else if (eq modifiable.type "checkbox")}}
-      {{input type="checkbox" checked=(await value)}}
+      {{input type="checkbox" checked=boundValue}}
     {{/if}}
   {{/if}}
-{{else}}  
-  {{#if (eq (await value) true)}}
+{{else}}
+  {{#if (eq boundValue true)}}
     {{input type="checkbox" checked=true disabled=true}}
-  {{else if (eq (await value) false)}}
+  {{else if (eq boundValue false)}}
     {{input type="checkbox" checked=false disabled=true}}
   {{else}}
-    {{await value}}
+    {{boundValue}}
   {{/if}}
 {{/if}}

@@ -133,18 +133,13 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       # TODO : Handle
       @incrementProperty('loadedItems')
     handleValueConfirmed: (model, newvalue) ->
-      if model.type is "string" then model.value = newvalue
+      if model.type is "string"
+        model.value = newvalue
       else if model.type is "property"
-        checkProm = @get('object').set(model.value, newvalue)
-        if checkProm.then
-          checkProm.then () =>
-            @get('object').save()
-        else
-          @get('object').save()
+        @get('object').set(model.value, newvalue)
     handleItemValueConfirmed: (model, newvalue, index) ->
       if index and newvalue and model
         @get('object').get(this.get('model.value'))[index] = newvalue
-        @get('object').save()
 
 
 `export default ContainerValueDisplayComponent`

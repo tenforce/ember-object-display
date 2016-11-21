@@ -1,3 +1,6 @@
+{{#if displaySaveButton}}
+  <button type="button" title="Save changes" {{action 'saveChanges'}} disabled={{not object.dirty}}>Save changes{{if object.dirty "*"}}</button>
+{{/if}}
 {{#if displayTitle}}
     {{item-display model=model.title object=object inheritedHelpers=helpers handleLabelClicked="handleLabelClicked"
     handleValueClicked="handleValueClicked" handleHide="handleHideTitle"}}
@@ -7,6 +10,3 @@
         {{headings-display model=model.headings object=object inheritedHelpers=helpers handleHide="handleHideHeadings"}}
     {{/unless}}
 {{/if}}
-{{!#if modifiable}}
-  <!--button type="button" class="save" {{action 'saveChanges'}}>Save changes</button-->
-{{!/if}}

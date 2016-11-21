@@ -14,6 +14,17 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
     @sendAction('clicked', @)
     false
 
+  boundValue: null
+
+  updateValue: Ember.observer 'boundValue', ->
+    if @get('modifiable')
+      boundValue = @get('boundValue')
+      if boundValue
+        @get('value').then (value) =>
+          if boundValue isnt value
+            @set('object.dirty', true)
+            @sendAction('valueConfirmed', @get('model'), boundValue, @get('index'))
+
   checkValue: Ember.observer('object', 'value', () ->
     @get('value').then (value) =>
       #if @get('model.test') is true then debugger
@@ -23,21 +34,16 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
         @set('empty', true)
       else
         @set('isLoading', false)
+
+      @set 'boundValue', value
   ).on('init')
 
   finishedLoading: Ember.observer('object', 'isLoading', () ->
     if @get('isLoading') is false then @sendAction('handleFinishedLoading', @, @get('index'))
   ).on('init')
 
-  actions:
-    ###enter: (value) ->
-      if(event.keyCode == 13 && not event.shiftKey && not event.ctrlKey)
-        @sendAction('valueConfirmed', @get('model'), value, @get('index'))
-        event.preventDefault()
-      false###
-    keyPress: (value) ->
-      if(event.keyCode == 13 && not event.shiftKey && not event.ctrlKey)
-        @sendAction('valueConfirmed', @get('model'), value, @get('index'))
-        event.preventDefault()
+  # actions:
+  #   keyPress: (value) ->
+  #     console.log value
 
 `export default ValueDisplayComponent`

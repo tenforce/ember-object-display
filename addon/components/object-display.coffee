@@ -10,6 +10,11 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultCollapsible: false
   defaultCollapsed: false
 
+  hideSaveButton: false
+
+  displaySaveButton: Ember.computed 'object.disableEditing', 'hideSaveButton', ->
+    (false is @get('object.disableEditing')) and (false is @get('hideSaveButton'))
+
   displayTitle: Ember.computed 'model.title', 'hideTitle', ->
     unless @get('model.title') then return false
     if @get('hideTitle') is true then return false
@@ -50,7 +55,9 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     handleHideHeadings: ->
       @set('hideHeadings', true)
     saveChanges: ->
-      if @get('bubbleSaveChanges') then sendAction('saveChanges', @get('object'))
-      else @get('object')?.save()
+      object = @get('object')
+      if object.get('dirty')
+        object.save()
+        object.set('dirty', false)
 
 `export default ObjectDisplayComponent`
