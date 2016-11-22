@@ -12,6 +12,17 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
 
   hideSaveButton: false
 
+  cleanStateObserver: Ember.observer('object.id', () ->
+    if @cleanState then @cleanState()
+  ).on('init')
+  cleanState: () ->
+    @set('hideTitle', false)
+    @set('hideHeadings', false)
+    @set('refresh', true)
+    Ember.run.later =>
+      # This is really ugly. But it'll force the addon to recreate the components. Only component not recreated is this one.
+      @set('refresh', false)
+
   displaySaveButton: Ember.computed 'object.disableEditing', 'hideSaveButton', ->
     (false is @get('object.disableEditing')) and (false is @get('hideSaveButton'))
 
