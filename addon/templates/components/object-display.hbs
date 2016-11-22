@@ -1,5 +1,5 @@
 {{#if displaySaveButton}}
-  <button type="button" title="Save changes" {{action 'saveChanges'}} disabled={{not object.dirty}}>Save changes{{if object.dirty "*"}}</button>
+  <button type="button" title="Save changes" {{action 'saveChanges'}} disabled={{not object.dirty}} class="save--changes" >Save changes</button>
 {{/if}}
 {{#if displayTitle}}
     {{item-display model=model.title object=object inheritedHelpers=helpers handleLabelClicked="handleLabelClicked"
