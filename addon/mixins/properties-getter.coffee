@@ -43,7 +43,7 @@ PropertiesGetterMixin = Ember.Mixin.create
     modifiableSize
   modifiablePlaceholder: Ember.computed 'model.properties.modifiable.placeholder', ->
     modifiablePlaceholder = @get 'model.properties.modifiable.placeholder'
-    if modifiablePlaceholder is undefined then modifiablePlaceholder = "Enter text and press enter to save"
+    if modifiablePlaceholder is undefined then modifiablePlaceholder = "Enter text here"
     modifiablePlaceholder
   loading: Ember.computed 'model.properties.loading', ->
     loading = @get 'model.properties.loading'
