@@ -47,6 +47,25 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       res = @getProperty(@get('object'), val)
     @ensurePromise(res)
 
+  setValue: Ember.observer('object', 'model.type', 'model.value', () ->
+    if @get('object') and @get('model.type') and @get('model.value')
+      type = @get('model.type')
+      val = @get('model.value')
+      if ['string', 'component'].contains(type)
+        Ember.defineProperty @, "value",
+          Ember.computed 'object', 'model.type', 'model.value', ->
+            @ensurePromise(val)
+      else
+        key = "object."+@get('model.value')
+        Ember.defineProperty @, "value",
+          Ember.computed 'object', 'model.type', 'model.value', key, ->
+            if ['property', 'array', 'hasMany', 'hasOne'].contains(type)
+              res = @getProperty(@get('object'), val)
+              @ensurePromise(res)
+    else
+      debugger
+  ).on('init')
+
   getProperty: (target, propertyName) ->
     if target then target.get(propertyName)
     else return null

@@ -26,8 +26,7 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
             @sendAction('valueConfirmed', @get('model'), boundValue, @get('index'))
 
   checkValue: Ember.observer('object', 'value', () ->
-    @get('value').then (value) =>
-      #if @get('model.test') is true then debugger
+    @get('value')?.then (value) =>
       if value is true or value is false
         @set('isLoading', false)
       else unless value

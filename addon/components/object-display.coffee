@@ -10,6 +10,9 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultCollapsible: false
   defaultCollapsed: false
 
+  loadingClass: "fa fa-spinner fa-pulse"
+  loadingText: "Loading..."
+
   hideSaveButton: false
 
   cleanStateObserver: Ember.observer('object.id', () ->
