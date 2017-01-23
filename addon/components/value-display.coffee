@@ -10,25 +10,32 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
   defaultClassNameBindings: []
   defaultCollapsible: false
   defaultCollapsed: false
+
+  saveAllButton: Ember.inject.service()
+
+  init: ->
+    @_super()
+    type = @get('model.type')
+    if @get('modifiable') && ['property', 'hasMany', 'hasOne'].contains(type)
+      ref = 'object.' + @get('model.value')
+      Ember.defineProperty @, "dirty",
+        Ember.computed 'boundValue', ref, ->
+          ref = 'object.' + @get('model.value')
+          value = @get(ref)
+          boundValue = @get('boundValue')
+          boundValue != value
+      @get('saveAllButton').subscribe(@)
+
   click: ->
     @sendAction('clicked', @)
     false
 
-  boundValue: null
+  boundValue: undefined
 
-  updateValue: Ember.observer 'boundValue', ->
-    if @get('modifiable')
-      boundValue = @get('boundValue')
-      if boundValue
-        @get('value').then (value) =>
-          if boundValue isnt value
-            if not @get('object.isUnderCreation')
-              @set('object.dirty', true) 
-            @sendAction('valueConfirmed', @get('model'), boundValue, @get('index'))
-
-  checkValue: Ember.observer('object', 'value', () ->
+  # TODO just make this part of init()? 
+  checkValue: Ember.observer('value', () ->
+    # console.log "Value changed"
     @get('value').then (value) =>
-      #if @get('model.test') is true then debugger
       if value is true or value is false
         @set('isLoading', false)
       else if not value
@@ -39,12 +46,31 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
       @set 'boundValue', value
   ).on('init')
 
+
   finishedLoading: Ember.observer('object', 'isLoading', () ->
-    if @get('isLoading') is false then @sendAction('handleFinishedLoading', @, @get('index'))
+    if @get('isLoading') is false
+      @sendAction('handleFinishedLoading', @, @get('index'))
   ).on('init')
 
-  # actions:
-  #   keyPress: (value) ->
-  #     console.log value
+  saveAllClick: ->
+    @saveField()
+
+  saveField: ->
+    console.log "Saving:", @get('model.value'), "from", @get('object.' + @get('model.value')), "to", @get('boundValue')
+    boundValue = @get('boundValue')
+    @get('object').set(@get('model.value'), boundValue)
+    @get('object').save()
+
+  actions:
+    saveField: ->
+      @saveField()
+
+    resetField: ->
+      ref = 'object.' + @get('model.value')
+      value = @get(ref)
+      @set('boundValue', value)
+      # @get('object').resetField(@get('model.value'))
+
+
 
 `export default ValueDisplayComponent`

@@ -34,9 +34,27 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     if 'item' is type then return true
     else return false
 
-  ensurePromise: (x) ->
-    return new Ember.RSVP.Promise (resolve) ->
-      resolve(x)
+
+  # # TODO figure out if this is needed or even right. The idea is to dynamically set up computed properties watching the reference (!) stored in model.value.
+  # setValueProperty: Ember.observer('object', 'model.type', 'model.value', () ->
+  #   type = @get('model.type')
+  #   ref = @get('model.value')
+  #   # console.log key, ref, type
+  #   switch
+  #     when ['string', 'component'].contains(type)
+  #       Ember.defineProperty @, "value",
+  #         Ember.computed 'object', 'model.type', 'model.value', ->
+  #           console.log "Change on", ref
+  #           @ensurePromise(ref)
+  #     when ['property', 'hasMany', 'hasOne'].contains(type)
+  #       key = "model." + ref
+  #       Ember.defineProperty @, "value",
+  #         Ember.computed 'object', 'model.type', 'model.value', key, ->
+  #           console.log "Change on", key
+  #           res = @getProperty(@get('object'), ref)
+  #           @ensurePromise(res)
+  # ).on('init')
+
   value: Ember.computed 'object', 'model.type', 'model.value', ->
     res
     type = @get('model.type')
@@ -47,11 +65,17 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       res = @getProperty(@get('object'), val)
     @ensurePromise(res)
 
-  getProperty: (target, propertyName) ->
-    if target then target.get(propertyName)
-    else return null
+  ensurePromise: (x) ->
+    return new Ember.RSVP.Promise (resolve) ->
+      resolve(x)
 
-  relation: Ember.computed 'object', 'model.relation', 'model.relation', ->
+  getProperty: (target, propertyName) ->
+    if target
+      target.get(propertyName)
+    else
+      null
+
+  relation: Ember.computed 'object', 'model.relation', ->
     @get('model.relation')
 
 
@@ -132,14 +156,18 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     handleItemFinishedLoading: (context, index) ->
       # TODO : Handle
       @incrementProperty('loadedItems')
-    handleValueConfirmed: (model, newvalue) ->
-      if model.type is "string"
-        model.value = newvalue
-      else if model.type is "property"
-        @get('object').set(model.value, newvalue)
-    handleItemValueConfirmed: (model, newvalue, index) ->
-      if index and newvalue and model
-        @get('object').get(this.get('model.value'))[index] = newvalue
+
+
+
+    # handleValueChanged: (model, newvalue) ->
+    #   if model.type is "string"
+    #     model.value = newvalue
+    #   else if model.type is "property"
+    #     @get('object').set(model.value, newvalue)
+    # handleItemValueChanged: (model, newvalue, index) ->
+    #   # TODO what if it's a checkbox set to false?
+    #   if index and newvalue and model
+    #     @get('object').get(this.get('model.value'))[index] = newvalue
 
 
 `export default ContainerValueDisplayComponent`
