@@ -32,10 +32,18 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
 
   boundValue: undefined
 
-  # TODO just make this part of init()? 
+  updateValue: Ember.observer 'boundValue', ->
+    if @get('modifiable')
+      boundValue = @get('boundValue')
+      if boundValue
+        @get('value').then (value) =>
+          if boundValue isnt value
+            @set('object.dirty', true)
+            @sendAction('valueConfirmed', @get('model'), boundValue, @get('index'))
+
+  # TODO just make this part of init()?
   checkValue: Ember.observer('value', () ->
-    # console.log "Value changed"
-    @get('value').then (value) =>
+    @get('value')?.then (value) =>
       if value is true or value is false
         @set('isLoading', false)
       else if not value

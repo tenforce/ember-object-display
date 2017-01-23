@@ -35,25 +35,7 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     else return false
 
 
-  # # TODO figure out if this is needed or even right. The idea is to dynamically set up computed properties watching the reference (!) stored in model.value.
-  # setValueProperty: Ember.observer('object', 'model.type', 'model.value', () ->
-  #   type = @get('model.type')
-  #   ref = @get('model.value')
-  #   # console.log key, ref, type
-  #   switch
-  #     when ['string', 'component'].contains(type)
-  #       Ember.defineProperty @, "value",
-  #         Ember.computed 'object', 'model.type', 'model.value', ->
-  #           console.log "Change on", ref
-  #           @ensurePromise(ref)
-  #     when ['property', 'hasMany', 'hasOne'].contains(type)
-  #       key = "model." + ref
-  #       Ember.defineProperty @, "value",
-  #         Ember.computed 'object', 'model.type', 'model.value', key, ->
-  #           console.log "Change on", key
-  #           res = @getProperty(@get('object'), ref)
-  #           @ensurePromise(res)
-  # ).on('init')
+
 
   value: Ember.computed 'object', 'model.type', 'model.value', ->
     res
@@ -65,9 +47,31 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       res = @getProperty(@get('object'), val)
     @ensurePromise(res)
 
+  # TODO figure out if this is needed or even right. The idea is to dynamically set up computed properties watching the reference (!) stored in model.value.
+  # setValue: Ember.observer('object', 'model.type', 'model.value', () ->
+  #   if @get('object') and @get('model.type') and @get('model.value')
+  #     type = @get('model.type')
+  #     val = @get('model.value')
+  #     if ['string', 'component'].contains(type)
+  #       Ember.defineProperty @, "value",
+  #         Ember.computed 'object', 'model.type', 'model.value', ->
+  #           @ensurePromise(val)
+  #     else
+  #       key = "object."+@get('model.value')
+  #       Ember.defineProperty @, "value",
+  #         Ember.computed 'object', 'model.type', 'model.value', key, ->
+  #           if ['property', 'array', 'hasMany', 'hasOne'].contains(type)
+  #             res = @getProperty(@get('object'), val)
+  #             @ensurePromise(res)
+  #   else
+  #     debugger
+  # ).on('init')
+
+
   ensurePromise: (x) ->
     return new Ember.RSVP.Promise (resolve) ->
       resolve(x)
+
 
   getProperty: (target, propertyName) ->
     if target
@@ -157,17 +161,6 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
       # TODO : Handle
       @incrementProperty('loadedItems')
 
-
-
-    # handleValueChanged: (model, newvalue) ->
-    #   if model.type is "string"
-    #     model.value = newvalue
-    #   else if model.type is "property"
-    #     @get('object').set(model.value, newvalue)
-    # handleItemValueChanged: (model, newvalue, index) ->
-    #   # TODO what if it's a checkbox set to false?
-    #   if index and newvalue and model
-    #     @get('object').get(this.get('model.value'))[index] = newvalue
 
 
 `export default ContainerValueDisplayComponent`
