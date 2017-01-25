@@ -13,9 +13,9 @@
       {{/if}}
     {{/if}}
     {{#if (not object.isUnderCreation)}}
-      <div style="float: right;"> {{! TODO style savebutton}}
-        <button type="button" class="saveField"  title="save field"  {{action 'saveField'}}  disabled={{not dirty}}>✔</button>
-        <button type="button" class="resetField" title="reset field" {{action 'resetField'}} disabled={{not dirty}}>✘</button>
+      <div class="actions">
+	      <button type="button" class="save"   title="save field"  {{action 'saveField'}}  disabled={{not dirty}}></button>
+        <button type="button" class="cancel" title="reset field" {{action 'resetField'}} disabled={{not dirty}}></button>
       </div>
     {{/if}}
   </div>
