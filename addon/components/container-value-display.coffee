@@ -114,10 +114,11 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     @get('emptyItems') + @get('loadedItems')
 
   checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
-    if ['array', 'hasMany'].contains @get('model.type')
-      @get('arrayLength').then (length) =>
-        #debugger
-        if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
+    if not @get('showEmpty')
+      if ['array', 'hasMany'].contains @get('model.type')
+        @get('arrayLength').then (length) =>
+          #debugger
+          if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
   ).on('init')
 
   checkHandledItems: Ember.observer('object', 'arrayLength', 'handledItems', () ->
