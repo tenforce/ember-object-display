@@ -15,8 +15,8 @@ structure of the thing
 
 types in use:
   component: {value: an ember component}
+  item: {value: js object} -> recursive ember-object-display?
   property: {value: an ember get reference}
-  item: {value: js object} -> recursive component?
   string: {value: js string}
   hasMany: {value:  an ember get reference}
 
@@ -25,3 +25,16 @@ types in use:
 modifiable:
   false | true | {type: textarea}
   true is actually "text"
+  text and textarea should just be components probably
+
+
+
+what's up with this index thing?
+
+
+handleFinishedLoading etc -> just use ember promise helpers?
+
+
+
+useful atom regexes:
+  handle[a-zA-Z]*(FinishedLoading|Loaded)
