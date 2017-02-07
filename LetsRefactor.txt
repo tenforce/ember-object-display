@@ -1,0 +1,27 @@
+structure of the thing
+
+  title:
+    target:
+      prefix
+      suffix
+    headings:
+      values:
+        [
+
+        ]
+
+
+
+
+types in use:
+  component: {value: an ember component}
+  property: {value: an ember get reference}
+  item: {value: js object} -> recursive component?
+  string: {value: js string}
+  hasMany: {value:  an ember get reference}
+
+
+
+modifiable:
+  false | true | {type: textarea}
+  true is actually "text"
