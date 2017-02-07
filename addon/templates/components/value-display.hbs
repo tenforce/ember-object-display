@@ -14,11 +14,5 @@
     </div>
   {{/if}}
 {{else}}
-  {{#if (eq boundValue true)}}
-    {{input type="checkbox" checked=true disabled=true}}
-  {{else if (eq boundValue false)}}
-    {{input type="checkbox" checked=false disabled=true}}
-  {{else}}
-    {{boundValue}}
-  {{/if}}
+  {{boundValue}}
 {{/if}}

@@ -44,9 +44,7 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
   # TODO just make this part of init()?
   checkValue: Ember.observer('value', () ->
     @get('value')?.then (value) =>
-      if value is true or value is false
-        @set('isLoading', false)
-      else if not value
+      if not value
         @set('empty', true)
       else
         @set('isLoading', false)
