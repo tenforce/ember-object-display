@@ -1,21 +1,3 @@
-{{#if isArray}}
-  {{#value-surrounder model=model.container object=object inheritedHelpers=helpers}}
-    {{#each (await value) as |subvalue index|}}
-      {{#unless subvalue._shouldHide}}
-        {{#value-surrounder model=model.member object=object inheritedHelpers=helpers}}
-          {{#if displayPrefix}}
-            {{container-value-display model=model.item.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
-          {{/if}}
-          {{value-display model=model.item object=object value=(promise-maker subvalue) index=index inheritedHelpers=helpers subject=subvalue
-          clicked="handleValueClicked" handleHide="handleHideItem" handleFinishedLoading="handleItemFinishedLoading"}}
-          {{#if displaySuffix}}
-            {{container-value-display model=model.item.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
-          {{/if}}
-        {{/value-surrounder}}
-      {{/unless}}
-    {{/each}}
-  {{/value-surrounder}}
-
 {{else if isSimple}}
   {{#if displayPrefix}}
     {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked"
@@ -33,15 +15,6 @@
     {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
   {{/if}}
   {{component (await value) model=model object=object inheritedHelpers=helpers clicked="handleValueClicked" handleHide="handleHideValue" handleFinishedLoading="handleValueFinishedLoading"}}
-  {{#if displaySuffix}}
-    {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
-  {{/if}}
-
-{{else if isHasOne}}
-  {{#if displayPrefix}}
-    {{container-value-display model=model.prefix object=object inheritedHelpers=helpers clicked="handlePrefixClicked" handleHide="handleHidePrefix" handleFinishedLoading="handlePrefixFinishedLoading"}}
-  {{/if}}
-  {{container-value-display model=model.relation object=value originalObject=object inheritedHelpers=helpers clicked="handleValueClicked" handleFinishedLoading="handleValueFinishedLoading"}}
   {{#if displaySuffix}}
     {{container-value-display model=model.suffix object=object inheritedHelpers=helpers clicked="handleSuffixClicked" handleHide="handleHideSuffix" handleFinishedLoading="handleSuffixFinishedLoading"}}
   {{/if}}

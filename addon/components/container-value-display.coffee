@@ -9,10 +9,6 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   classNames: []
   classNameBindings: []
 
-  isArray: Ember.computed 'model.type', ->
-    type = @get('model.type')
-    if 'array' is type then return true
-    else return false
   isSimple: Ember.computed 'model.type', ->
     type = @get('model.type')
     if ['property', 'string'].contains(type) then return true
@@ -20,10 +16,6 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   isComponent: Ember.computed 'model.type', ->
     type = @get('model.type')
     if 'component' is type then return true
-    else return false
-  isHasOne: Ember.computed 'model.type', ->
-    type = @get('model.type')
-    if 'hasOne' is type then return true
     else return false
   isHasMany: Ember.computed 'model.type', ->
     type = @get('model.type')
@@ -43,7 +35,7 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     val = @get('model.value')
     if ['string', 'component'].contains(type)
       res = val
-    else if ['property', 'array', 'hasMany', 'hasOne'].contains(type)
+    else if ['property', 'hasMany'].contains(type)
       res = @getProperty(@get('object'), val)
     @ensurePromise(res)
 
@@ -60,7 +52,7 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   #       key = "object."+@get('model.value')
   #       Ember.defineProperty @, "value",
   #         Ember.computed 'object', 'model.type', 'model.value', key, ->
-  #           if ['property', 'array', 'hasMany', 'hasOne'].contains(type)
+  #           if ['property', 'hasMany'].contains(type)
   #             res = @getProperty(@get('object'), val)
   #             @ensurePromise(res)
   #   else
@@ -114,15 +106,14 @@ ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
     @get('emptyItems') + @get('loadedItems')
 
   checkEmptyItems: Ember.observer('object', 'arrayLength', 'emptyItems', () ->
-    if not @get('showEmpty')
-      if ['array', 'hasMany'].contains @get('model.type')
-        @get('arrayLength').then (length) =>
-          #debugger
-          if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
+    if ['hasMany'].contains @get('model.type')
+      @get('arrayLength').then (length) =>
+        #debugger
+        if length is @get('emptyItems') then @sendAction('handleHide', @, @get('index'))
   ).on('init')
 
   checkHandledItems: Ember.observer('object', 'arrayLength', 'handledItems', () ->
-    if ['array', 'hasMany'].contains @get('model.type')
+    if ['hasMany'].contains @get('model.type')
       @get('arrayLength').then (length) =>
         if length is @get('handledItems') then @set('valueIsLoaded', true)
   ).on('init')

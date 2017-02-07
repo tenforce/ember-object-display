@@ -16,7 +16,7 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
   init: ->
     @_super()
     type = @get('model.type')
-    if @get('modifiable') && ['property', 'hasMany', 'hasOne'].contains(type)
+    if @get('modifiable') && ['property', 'hasMany'].contains(type)
       ref = 'object.' + @get('model.value')
       Ember.defineProperty @, "dirty",
         Ember.computed 'boundValue', ref, ->
@@ -76,7 +76,6 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
       ref = 'object.' + @get('model.value')
       value = @get(ref)
       @set('boundValue', value)
-      # @get('object').resetField(@get('model.value'))
 
 
 
