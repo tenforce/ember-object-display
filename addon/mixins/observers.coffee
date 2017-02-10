@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
 
 ObserversMixin = Ember.Mixin.create
+  # Maybe still useful
   shouldHide: Ember.observer('object', 'hide', 'showEmpty', 'empty', () ->
     unless @get('model._shouldHide')
       if @get('hide') is true then @sendAction('handleHide', @, @get('index'))

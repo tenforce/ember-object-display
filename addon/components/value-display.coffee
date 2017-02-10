@@ -4,6 +4,7 @@
 `import ResizeTextareaMixin from '../mixins/resize-textarea'`
 
 ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTextareaMixin,
+  # DEPRECATED
   layout:layout
   defaultTagName: 'div'
   defaultClassNames: ['value-display']
@@ -38,7 +39,6 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
       if boundValue
         @get('value').then (value) =>
           if boundValue isnt value
-            @set('object.dirty', true)
             @sendAction('valueConfirmed', @get('model'), boundValue, @get('index'))
 
   # TODO just make this part of init()?

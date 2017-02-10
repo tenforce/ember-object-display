@@ -3,6 +3,7 @@
 `import MixinsContainerMixin from '../mixins/mixins-container'`
 
 HeadingsDisplayComponent = Ember.Component.extend MixinsContainerMixin,
+  # DEPRECATED
   layout:layout
   defaultTagName: 'div'
   defaultClassNames: ['headings-display']

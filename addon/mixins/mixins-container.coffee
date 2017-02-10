@@ -5,6 +5,7 @@
 `import ObserversMixin from '../mixins/observers'`
 
 MixinsContainerMixin = Ember.Mixin.create AttributesGetterMixin, PropertiesGetterMixin, HelpersMergerMixin, ObserversMixin,
+  # DEPRECATED
   init: ->
     @._super()
     @setAttributes()

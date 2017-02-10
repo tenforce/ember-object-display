@@ -3,6 +3,7 @@
 `import MixinsContainerMixin from '../mixins/mixins-container'`
 
 ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
+  # DEPRECATED
   layout: layout
   defaultTagName: 'div'
   defaultClassNames: ['object-display']
@@ -11,14 +12,12 @@ ObjectDisplayComponent = Ember.Component.extend MixinsContainerMixin,
   defaultCollapsed: false
 
 
-  loadingClass: "fa fa-spinner fa-pulse"
-  loadingText: "Loading..."
-
   hideSaveButton: false
 
   cleanStateObserver: Ember.observer('object.id', () ->
     if @cleanState then @cleanState()
   ).on('init')
+
   cleanState: () ->
     @set('hideTitle', false)
     @set('hideHeadings', false)

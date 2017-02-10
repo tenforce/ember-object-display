@@ -3,6 +3,7 @@
 `import MixinsContainerMixin from '../mixins/mixins-container'`
 
 ValueSurrounderComponent = Ember.Component.extend MixinsContainerMixin,
+  # DEPRECATED
   layout:layout
   defaultTagName: ''
   defaultClassNames: []

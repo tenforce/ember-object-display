@@ -1,10 +1,13 @@
+{{!DEPRECATED}}
 {{#if refresh}}
-  <i class="{{loadingClass}}"></i> {{loadingText}}
+  <i class="fa fa-spinner fa-pulse"></i>Loading...
 {{else}}
   {{#if displayTitle}}
     {{item-display model=model.title object=object inheritedHelpers=helpers handleLabelClicked="handleLabelClicked"
     handleValueClicked="handleValueClicked" handleHide="handleHideTitle"}}
   {{/if}}
+
+
   {{#if displayHeadings}}
     {{#unless collapsed}}
       {{headings-display model=model.headings object=object inheritedHelpers=helpers handleHide="handleHideHeadings"}}

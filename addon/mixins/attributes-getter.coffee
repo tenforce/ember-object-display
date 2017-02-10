@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
 
 AttributesGetterMixin = Ember.Mixin.create
+  # DEPRECATED
   setAttributes: () ->
     if @get('doNotSetAttributes')
       return false

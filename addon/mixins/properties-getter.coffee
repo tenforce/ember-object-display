@@ -1,6 +1,7 @@
 `import Ember from 'ember'`
 
 PropertiesGetterMixin = Ember.Mixin.create
+  # DEPRECATED
   defaultShowEmpty: false
   defaultCollapsible: false
   defaultCollapsed: false

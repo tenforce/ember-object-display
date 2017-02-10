@@ -2,6 +2,7 @@
 `import layout from '../templates/components/loading-default'`
 
 LoadingDefaultComponent = Ember.Component.extend
+  # DEPRECATED
   layout:layout
   click: ->
     @sendAction('clicked', @)

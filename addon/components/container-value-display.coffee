@@ -3,6 +3,7 @@
 `import MixinsContainerMixin from '../mixins/mixins-container'`
 
 ContainerValueDisplayComponent = Ember.Component.extend MixinsContainerMixin,
+  # DEPRECATED
   layout:layout
   doNotSetAttributes: true
   tagName: ''
