@@ -1,5 +1,6 @@
 `import Ember from 'ember'`
 `import layout from '../templates/components/concept-textarea'`
+`import ResizeTextareaMixin from '../mixins/resize-textarea'`
 
 ConceptTextareaComponent = Ember.Component.extend ResizeTextareaMixin,
   saveAllButton: Ember.inject.service()
