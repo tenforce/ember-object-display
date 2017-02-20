@@ -66,14 +66,17 @@ ValueDisplayComponent = Ember.Component.extend MixinsContainerMixin, ResizeTexta
     @get('object').set(@get('model.value'), boundValue)
     @get('object').save()
 
+  resetField: ->
+    ref = 'object.' + @get('reference')
+    value = @get(ref)
+    @set('boundValue', value)
+
   actions:
     saveField: ->
       @saveField()
 
     resetField: ->
-      ref = 'object.' + @get('model.value')
-      value = @get(ref)
-      @set('boundValue', value)
+      @resetField()
 
 
 

@@ -27,6 +27,11 @@ ConceptTextareaComponent = Ember.Component.extend ResizeTextareaMixin,
   saveAllClick: ->
     @saveField()
 
+  resetField: ->
+    ref = 'object.' + @get('reference')
+    value = @get(ref)
+    @set('boundValue', value)
+
   saveField: ->
     boundValue = @get('boundValue')
     @get('object').set(@get('reference'), boundValue)
@@ -37,9 +42,7 @@ ConceptTextareaComponent = Ember.Component.extend ResizeTextareaMixin,
       @saveField()
 
     resetField: ->
-      ref = 'object.' + @get('reference')
-      value = @get(ref)
-      @set('boundValue', value)
+      @resetField()
 
 
 
