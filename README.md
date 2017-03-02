@@ -3,7 +3,7 @@
 Ember object display
 ======
 
-Interprets a JS object to generate 
+Interprets a JS object to generate a view of an esco concept.
 
 Deprecation note
 ---
